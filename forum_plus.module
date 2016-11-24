@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains forum_plus.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function forum_plus_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the forum_plus module.
+    case 'help.page.forum_plus':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Extends default forum functionality with some useful forum features.') . '</p>';
+      return $output;
+
+    default:
+  }
+}

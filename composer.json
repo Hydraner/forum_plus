@@ -1,0 +1,14 @@
+{
+  "name": "drupal/forum_plus",
+  "type": "drupal-module",
+  "description": "Extends default forum functionality with some usefull forum features.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/forum_plus",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/forum_plus",
+    "source": "http://cgit.drupalcode.org/forum_plus"
+  },
+  "require": { }
+}
