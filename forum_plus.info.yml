@@ -1,6 +1,6 @@
 name: Forum+
 type: module
-description: Extends default forum functionality with some usefull forum features.
+description: Extends default forum functionality with some useful forum features.
 core: 8.x
 package: forum
 dependencies:

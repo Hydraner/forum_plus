@@ -1,0 +1,6 @@
+services:
+  forum_plus_manager:
+    class: Drupal\forum_plus\ForumPlusManager
+    arguments: ['@config.factory', '@entity.manager', '@database', '@string_translation', '@comment.manager', '@entity_type.manager']
+    tags:
+      - { name: backend_overridable }

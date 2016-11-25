@@ -5,6 +5,7 @@
  * Contains forum_plus.module.
  */
 
+use Drupal\comment\Plugin\Field\FieldType\CommentItemInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -21,4 +22,46 @@ function forum_plus_help($route_name, RouteMatchInterface $route_match) {
 
     default:
   }
+}
+
+/**
+ * Implements template_preprocess_forum_table_view_table().
+ */
+function template_preprocess_forum_plus_forum_table(&$variables) {
+  template_preprocess_views_view_table($variables);
+  // @todo: Make field configurable.
+  $field_name = 'name';
+  foreach ($variables['rows'] as $delta => &$row) {
+    $row['columns'][$field_name]['depth'] = $variables['view']->result[$delta]->depth;
+  }
+}
+
+// @todo: Introduce type.
+function forum_plus_preprocess_forum_icon(&$variables) {
+  $variables['hot_threshold'] = \Drupal::config('forum.settings')->get('topics.hot_threshold');
+
+  if ($variables['num_posts'] > $variables['hot_threshold']) {
+    $variables['icon_status'] = $variables['new_posts'] ? 'hot-new' : 'hot';
+    $variables['icon_title'] = $variables['new_posts'] ? t('Hot topic, new comments') : t('Hot topic');
+  }
+  else {
+    $variables['icon_status'] = $variables['new_posts'] ? 'new' : 'default';
+    $variables['icon_title'] = $variables['new_posts'] ? t('New comments') : t('Normal topic');
+    if ($variables['type'] == 'forum') {
+      // @todo
+      $variables['icon_title'] = $variables['new_posts'] ? t('New topics') : t('Normal topic');
+    }
+  }
+
+  if ($variables['comment_mode'] == CommentItemInterface::CLOSED || $variables['comment_mode'] == CommentItemInterface::HIDDEN) {
+    $variables['icon_status'] = 'closed';
+    $variables['icon_title'] = t('Closed topic');
+  }
+
+  if ($variables['sticky'] == 1) {
+    $variables['icon_status'] = 'sticky';
+    $variables['icon_title'] = t('Sticky topic');
+  }
+
+  $variables['attributes']['title'] = $variables['icon_title'];
 }
