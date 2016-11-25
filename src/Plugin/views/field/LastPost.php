@@ -5,12 +5,10 @@ namespace Drupal\forum_plus\Plugin\views\field;
 use Drupal\forum_plus\ForumPlusManagerInterface;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
-use Drupal\Core\Link;
-use Drupal\Core\Datetime\DateFormatterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * A handler to show the last post in a forum.
+ * A handler to show who did the last post in a forum.
  *
  * @ingroup views_field_handlers
  *

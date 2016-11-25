@@ -90,13 +90,15 @@ class TopicsCounter extends FieldPluginBase {
   public function render(ResultRow $values) {
     $output = $this->forumPlusManager->getTopicCount($values->tid);
 
-    $forum = $values->_entity;
+    // If the user is logged-in, we show an extra link indicating if their are
+    // new posts.
     if ($this->currentUser->isAuthenticated()) {
+      $forum = $values->_entity;
       $new_topics = $this->forumPlusManager->unreadTopics($forum->id(), $this->currentUser->id());
       if ($new_topics) {
         $url = new Url('forum.page', ['taxonomy_term' => $forum->id()], ['fragment' => 'new']);
         $link_title = $this->formatPlural(
-          $this->forumPlusManager->getTopicCount($values->tid),
+          count($new_topics),
           '1 new post<span class="visually-hidden"> in forum %title</span>',
           '@count new posts<span class="visually-hidden"> in forum %title</span>',
           ['%title' => $values->_entity->label()]

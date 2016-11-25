@@ -79,14 +79,14 @@ display:
           summary: ''
           description: ''
           columns:
-            icon: name
+            forum_icon: name
             name: name
             topics_counter: topics_counter
             posts_counter: posts_counter
             last_post: last_post
             description__value: name
           info:
-            icon:
+            forum_icon:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -131,10 +131,10 @@ display:
       row:
         type: fields
       fields:
-        icon:
-          id: icon
+        forum_icon:
+          id: forum_icon
           table: taxonomy_term_data
-          field: icon
+          field: forum_icon
           relationship: none
           group_type: group
           admin_label: ''
@@ -180,7 +180,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           entity_type: taxonomy_term
-          plugin_id: icon
+          plugin_id: forum_icon
         name:
           id: name
           table: taxonomy_term_field_data

@@ -12,9 +12,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup views_field_handlers
  *
- * @ViewsField("icon")
+ * @ViewsField("forum_icon")
  */
-class Icon extends FieldPluginBase {
+class ForumIcon extends FieldPluginBase {
 
   /**
    * The forum manager service.
