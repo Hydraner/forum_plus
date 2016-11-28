@@ -18,6 +18,18 @@ function forum_plus_views_data_alter(array &$data) {
       ],
     ],
   ];
+
+  $data['comment_entity_statistics'] += [
+    'last_reply' => [
+      'title' => t('Last Reply'),
+      'field' => [
+        'title' => t('Last Reply'),
+        'help' => t('Last Reply in a topic.'),
+        'id' => 'last_reply',
+      ],
+    ],
+  ];
+
   $data['taxonomy_term_data'] += [
     'posts_counter' => [
       'title' => t('Posts Counter'),
