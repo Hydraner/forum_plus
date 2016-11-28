@@ -8,13 +8,21 @@
  * Implements hook_views_data_alter().
  */
 function forum_plus_views_data_alter(array &$data) {
-  $data['node'] += [
+  $data['node_field_data'] += [
     'topic_icon' => [
       'title' => t('Icon'),
       'field' => [
         'title' => t('Icon'),
         'help' => t('Icon which displays before a topic.'),
         'id' => 'topic_icon',
+      ],
+    ],
+    'submitted_by' => [
+      'title' => t('Submitted by'),
+      'field' => [
+        'title' => t('Submitted by'),
+        'help' => t('Author who submitted the content.'),
+        'id' => 'submitted_by',
       ],
     ],
   ];
