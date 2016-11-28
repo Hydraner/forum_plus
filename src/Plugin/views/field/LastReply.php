@@ -3,7 +3,6 @@
 namespace Drupal\forum_plus\Plugin\views\field;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
-use Drupal\forum_plus\ForumPlusManagerInterface;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -16,13 +15,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @ViewsField("last_reply")
  */
 class LastReply extends FieldPluginBase {
-
-  /**
-   * The forum plus manager service.
-   *
-   * @var \Drupal\forum_plus\ForumPlusManagerInterface
-   */
-  protected $forumPlusManager;
 
   /**
    * The views plugin manager join service.
@@ -40,8 +32,6 @@ class LastReply extends FieldPluginBase {
    *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\forum_plus\ForumPlusManagerInterface $forum_plus_manager
-   *   The forum plus manager service.
    * @param $views_plugin_manager_join
    *  The views plugin manager join Service
    */
@@ -49,12 +39,10 @@ class LastReply extends FieldPluginBase {
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    ForumPlusManagerInterface $forum_plus_manager,
     PluginManagerInterface $views_plugin_manager_join
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
-    $this->forumPlusManager = $forum_plus_manager;
     $this->viewsPluginManagerJoin = $views_plugin_manager_join;
   }
 
@@ -71,7 +59,6 @@ class LastReply extends FieldPluginBase {
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('forum_plus_manager'),
       $container->get('plugin.manager.views.join')
     );
   }
@@ -118,8 +105,8 @@ class LastReply extends FieldPluginBase {
     return [
       '#theme' => 'forum_submitted',
       '#topic' => (object) [
-        'created' => $values->comment_entity_statistics_last_comment_timestamp,
-        'uid' => $values->comment_entity_statistics_last_comment_uid
+        'created' => $values->{$this->tableAlias . '_last_comment_timestamp'},
+        'uid' => $values->{$this->tableAlias . '_last_comment_uid'},
       ],
     ];
   }
