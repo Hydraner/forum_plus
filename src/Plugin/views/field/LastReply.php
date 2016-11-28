@@ -86,8 +86,6 @@ class LastReply extends FieldPluginBase {
     );
     $join = \Drupal::service('plugin.manager.views.join')->createInstance('standard', $definition);
 
-    $this->tableAlias = 'comment_entity_statistics';
-
     // Ensures we have the relationship.
     $this->users_data_table = $this->query->ensureTable('users_field_data', $this->relationship, $join);
 

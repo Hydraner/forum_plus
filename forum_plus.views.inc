@@ -17,6 +17,9 @@ function forum_plus_views_data_alter(array &$data) {
         'id' => 'topic_icon',
       ],
     ],
+  ];
+
+  $data['comment_entity_statistics'] += [
     'last_reply' => [
       'title' => t('Last Reply'),
       'field' => [
