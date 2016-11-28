@@ -4,3 +4,7 @@ services:
     arguments: ['@config.factory', '@entity.manager', '@database', '@string_translation', '@comment.manager', '@entity_type.manager']
     tags:
       - { name: backend_overridable }
+  forum_plus.route_subscriber:
+    class: Drupal\forum_plus\Routing\RouteSubscriber
+    tags:
+      - { name: 'event_subscriber' }
