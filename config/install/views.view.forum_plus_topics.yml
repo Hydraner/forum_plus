@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - node.type.forum
+    - views.view.forum_plus_forums
   module:
     - forum_plus
     - node
@@ -79,13 +80,13 @@ display:
           summary: ''
           description: ''
           columns:
-            topic_icon: title
+            topic_icon_1: title
             title: title
-            created: title
+            submitted_by_1: title
             comment_count: comment_count
-            last_comment_timestamp: last_comment_timestamp
+            last_reply: last_reply
           info:
-            topic_icon:
+            topic_icon_1:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -99,7 +100,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            created:
+            submitted_by_1:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -113,26 +114,26 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            last_comment_timestamp:
-              sortable: true
-              default_sort_order: desc
+            last_reply:
+              sortable: false
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-          default: last_comment_timestamp
+          default: '-1'
           empty_table: false
       row:
         type: fields
       fields:
-        topic_icon:
-          id: topic_icon
-          table: node
+        topic_icon_1:
+          id: topic_icon_1
+          table: node_field_data
           field: topic_icon
           relationship: none
           group_type: group
           admin_label: ''
-          label: Icon
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -165,7 +166,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -240,10 +241,10 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        created:
-          id: created
+        submitted_by_1:
+          id: submitted_by_1
           table: node_field_data
-          field: created
+          field: submitted_by
           relationship: none
           group_type: group
           admin_label: ''
@@ -288,25 +289,8 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: medium
-            custom_date_format: ''
-            timezone: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
           entity_type: node
-          entity_field: created
-          plugin_id: field
+          plugin_id: submitted_by
         comment_count:
           id: comment_count
           table: comment_entity_statistics
@@ -452,7 +436,18 @@ display:
             label: ''
           granularity: second
       title: 'Forum topics'
-      header: {  }
+      header:
+        view:
+          id: view
+          table: views
+          field: view
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          view_to_insert: 'forum_plus_forums:overview'
+          inherit_arguments: true
+          plugin_id: view
       footer: {  }
       empty: {  }
       relationships: {  }
