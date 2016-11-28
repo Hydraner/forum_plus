@@ -2,6 +2,7 @@
 
 namespace Drupal\forum_plus;
 
+use Drupal\comment\CommentManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityManagerInterface;
@@ -33,6 +34,8 @@ class ForumPlusManager extends ForumManager implements ForumPlusManagerInterface
    *   The current database connection.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The translation manager service.
+   * @param \Drupal\comment\CommentManagerInterface $comment_manager
+   *   The comment manager service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity_type manager service.
    */
@@ -41,13 +44,15 @@ class ForumPlusManager extends ForumManager implements ForumPlusManagerInterface
     EntityManagerInterface $entity_manager,
     Connection $connection,
     TranslationInterface $string_translation,
+    CommentManagerInterface $comment_manager,
     EntityTypeManagerInterface $entity_type_manager
   ) {
     parent::__construct(
       $config_factory,
       $entity_manager,
       $connection,
-      $string_translation
+      $string_translation,
+      $comment_manager
     );
 
     $this->entityTypeManager = $entity_type_manager;
