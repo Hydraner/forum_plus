@@ -2,10 +2,13 @@
 
 namespace Drupal\forum_plus\Plugin\views\field;
 
+use Drupal\Core\Session\AccountInterface;
 use Drupal\forum_plus\ForumPlusManagerInterface;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
+use Drupal\comment\CommentManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
 
 /**
  * A handler to show an icon.
@@ -24,6 +27,20 @@ class TopicIcon extends FieldPluginBase {
   protected $forumPlusManager;
 
   /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   */
+  protected $currentUser;
+
+  /**
+   * The comment manager service.
+   *
+   * @var \Drupal\comment\CommentManagerInterface
+   */
+  protected $commentManager;
+
+  /**
    * Constructs a PluginBase object.
    *
    * @param array $configuration
@@ -34,16 +51,24 @@ class TopicIcon extends FieldPluginBase {
    *   The plugin implementation definition.
    * @param \Drupal\forum_plus\ForumPlusManagerInterface $forum_plus_manager
    *   The forum manager service.
+   * @param \Drupal\Core\Session\AccountInterface $current_user.
+   *   The current user.
+   * @param \Drupal\comment\CommentManagerInterface $comment_manager.
+   *   The comment manager service.
    */
   public function __construct(
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    ForumPlusManagerInterface $forum_plus_manager
+    ForumPlusManagerInterface $forum_plus_manager,
+    AccountInterface $current_user,
+    CommentManagerInterface $comment_manager
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     $this->forumPlusManager = $forum_plus_manager;
+    $this->currentUser = $current_user;
+    $this->commentManager = $comment_manager;
   }
 
   /**
@@ -59,7 +84,9 @@ class TopicIcon extends FieldPluginBase {
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('forum_plus_manager')
+      $container->get('forum_plus_manager'),
+      $container->get('current_user'),
+      $container->get('comment.manager')
     );
   }
 
@@ -74,70 +101,26 @@ class TopicIcon extends FieldPluginBase {
    * {@inheritdoc}
    */
   public function render(ResultRow $values) {
-    return 'Icon';
-//    $tid = $values->tid;
-//    $debug = 1;
-////    $topic = \Drupal::getContainer()->get('entity_type.manager')->getStorage('taxonomy_term')->load($tid);
-//
-//
-//
-////
-////    $variables['forums'][$id]->new_text = '';
-////    $variables['forums'][$id]->new_url = '';
-////    $variables['forums'][$id]->new_topics = 0;
-////    $variables['forums'][$id]->old_topics = $forum->num_topics;
-////    $variables['forums'][$id]->icon_class = 'default';
-////    $variables['forums'][$id]->icon_title = t('No new posts');
-////    if ($user->isAuthenticated()) {
-////      $variables['forums'][$id]->new_topics = \Drupal::service('forum_manager')->unreadTopics($forum->id(), $user->id());
-////      if ($variables['forums'][$id]->new_topics) {
-////        $variables['forums'][$id]->new_text = \Drupal::translation()->formatPlural($variables['forums'][$id]->new_topics, '1 new post<span class="visually-hidden"> in forum %title</span>', '@count new posts<span class="visually-hidden"> in forum %title</span>', array('%title' => $variables['forums'][$id]->label()));
-////        $variables['forums'][$id]->new_url = \Drupal::url('forum.page', ['taxonomy_term' => $forum->id()], ['fragment' => 'new']);
-////        $variables['forums'][$id]->icon_class = 'new';
-////        $variables['forums'][$id]->icon_title = t('New posts');
-////      }
-////      $variables['forums'][$id]->old_topics = $forum->num_topics - $variables['forums'][$id]->new_topics;
-////    }
-////    $forum_submitted = array('#theme' => 'forum_submitted', '#topic' => $forum->last_post);
-////    $variables['forums'][$id]->last_reply = drupal_render($forum_submitted);
-////
-//
-//    $new_topics = FALSE;
-//    $user = \Drupal::currentUser();
-//    $forum = $values->_entity;
-//    if ($user->isAuthenticated()) {
-//      $new_topics = \Drupal::service('forum_manager')->unreadTopics($forum->id(), $user->id());
-//      if ($new_topics) {
-//
-//      }
-//    }
-//
-//    // @todo: Make this work.
-//    // @todo: Make a difference between a topic and Forum (term / node).
-//    // @todo: Think about the container.
-//    return [
-//      '#theme' => 'forum_icon',
-//      '#new_posts' => $new_topics,
-//      '#num_posts' => $this->forumPlusManager->getPostCount($tid),
-//      '#comment_mode' => 2,
-//      '#sticky' => false,
-//      '#first_new' => true,
-//      '#type' => 'forum',
-//      '#attached' => [
-//        'library' => ['classy/forum']
-//      ]
-//    ];
+    $topic = $values->_entity;
 
-    // @todo:
-    // Node icons.
-//    return [
-//      '#theme' => 'forum_icon',
-//      '#new_posts' => $topic->new,
-//      '#num_posts' => $this->forumPlusManager->getPostCount($tid),
-//      '#comment_mode' => $topic->comment_mode,
-//      '#sticky' => $topic->isSticky(),
-//      '#first_new' => $topic->first_new,
-//    ];
+    // A forum is new if the topic is new, or if there are new comments since
+    // the user's last visit.
+    $topic->new = 0;
+    $topic->last_comment_timestamp = $values->comment_entity_statistics_comment_count;
+    $history = $this->forumPlusManager->lastVisit($topic->id(), $this->currentUser);
+    $topic->new_replies = $this->commentManager->getCountNewComments($topic, 'comment_forum', $history);
+    if ($this->currentUser->isAuthenticated()) {
+      $topic->new = $topic->new_replies || ($topic->last_comment_timestamp > $history);
+    }
+
+    return [
+      '#theme' => 'forum_icon',
+      '#new_posts' => $topic->new,
+      '#num_posts' => $topic->last_comment_timestamp,
+      '#comment_mode' => $topic->comment_forum->status,
+      '#sticky' => $topic->isSticky(),
+      '#first_new' => TRUE,
+    ];
   }
 
 }
