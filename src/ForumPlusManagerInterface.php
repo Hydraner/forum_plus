@@ -55,20 +55,4 @@ interface ForumPlusManagerInterface extends ForumManagerInterface {
    *  Returns if the entity is a forum container.
    */
   public function isContainer($tid);
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getLastPost($tid);
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getForumStatistics($tid);
-
-  /**
-   * {@inheritdoc}
-   */
-  public function lastVisit($tid, AccountInterface $account);
-
 }

@@ -8,3 +8,8 @@ services:
     class: Drupal\forum_plus\Routing\RouteSubscriber
     tags:
       - { name: 'event_subscriber' }
+  forum_plus.route_processor:
+    class: Drupal\forum_plus\Routing\RouteProcessor
+    tags:
+      - { name: 'route_processor_outbound' }
+    arguments: ['@config.factory', '@entity.manager']
