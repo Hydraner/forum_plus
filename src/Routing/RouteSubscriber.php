@@ -22,7 +22,7 @@ class RouteSubscriber extends RouteSubscriberBase {
     $forum_index_route = $collection->get('forum.index');
     $forum_index_route->setDefault('_controller', '\Drupal\forum_plus\Controller\ForumPlusController::forumIndex');
     // Alter the forum.page route.
-    $forum_page_route = $collection->get('forum.index');
+    $forum_page_route = $collection->get('forum.page');
     $forum_page_route->setDefault('_controller', '\Drupal\forum_plus\Controller\ForumPlusController::forumPage');
   }
 
