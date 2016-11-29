@@ -1,0 +1,10 @@
+uuid: 9d1d8729-68c4-4993-bba9-900674364036
+langcode: de
+status: true
+dependencies:
+  module:
+    - node
+id: node.topic_thread
+label: 'Topic Thread'
+targetEntityType: node
+cache: true

@@ -1,0 +1,38 @@
+uuid: 16674ea9-a128-4ce1-9779-4d5ad0a5004c
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_avatar
+    - profile.type.forum_profile
+  module:
+    - image
+id: profile.forum_profile.field_avatar
+field_name: field_avatar
+entity_type: profile
+bundle: forum_profile
+label: Avatar
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: false
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: a8c7b98b-b816-436b-8b32-ef905e7c96ae
+    alt: Avatar
+    title: Avatar
+    width: 200
+    height: 275
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

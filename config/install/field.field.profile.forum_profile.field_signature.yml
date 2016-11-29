@@ -1,0 +1,21 @@
+uuid: 395495f9-9922-418c-a650-766eaccd7b4b
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_signature
+    - profile.type.forum_profile
+  module:
+    - text
+id: profile.forum_profile.field_signature
+field_name: field_signature
+entity_type: profile
+bundle: forum_profile
+label: Signature
+description: 'The profile signature.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
