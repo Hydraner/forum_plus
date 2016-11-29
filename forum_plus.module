@@ -65,3 +65,12 @@ function forum_plus_preprocess_forum_icon(&$variables) {
 
   $variables['attributes']['title'] = $variables['icon_title'];
 }
+
+/**
+ * Implements hook_entity_view_mode_alter().
+ */
+function forum_plus_entity_view_mode_alter(&$view_mode, $entity, $context) {
+  if (($view_mode == 'full' || $view_mode == 'default') && $entity->bundle() == 'forum') {
+    $view_mode = 'topic_thread';
+  }
+}
