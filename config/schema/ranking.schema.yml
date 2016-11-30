@@ -1,0 +1,16 @@
+forum_plus.ranking.*:
+  type: config_entity
+  label: 'Ranking config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    start:
+      type: integer
+      label: 'Start'
+    end:
+      type: integer
+      label: 'End'

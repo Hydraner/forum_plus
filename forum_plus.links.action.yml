@@ -9,3 +9,9 @@ forum_plus_add_container_local_action:
   title: 'Add container'
   appears_on:
     - view.forum_plus_forums.overview
+
+entity.ranking.add_form:
+  route_name: 'entity.ranking.add_form'
+  title: 'Add Ranking'
+  appears_on:
+    - entity.ranking.collection

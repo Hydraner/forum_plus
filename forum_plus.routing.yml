@@ -1,0 +1,31 @@
+entity.ranking.collection:
+  path: '/admin/config/forum/ranking'
+  defaults:
+    _entity_list: 'ranking'
+    _title: 'Ranking Configuration'
+  requirements:
+    _permission: 'administer site configuration'
+
+entity.ranking.add_form:
+  path: '/admin/config/forum/ranking/add'
+  defaults:
+    _entity_form: 'ranking.add'
+    _title: 'Add ranking'
+  requirements:
+    _permission: 'administer site configuration'
+
+entity.ranking.edit_form:
+  path: '/admin/config/forum/ranking/{ranking}'
+  defaults:
+    _entity_form: 'ranking.edit'
+    _title: 'Edit ranking'
+  requirements:
+    _permission: 'administer site configuration'
+
+entity.ranking.delete_form:
+  path: '/admin/config/forum/ranking/{ranking}/delete'
+  defaults:
+    _entity_form: 'ranking.delete'
+    _title: 'Delete ranking'
+  requirements:
+    _permission: 'administer site configuration'
