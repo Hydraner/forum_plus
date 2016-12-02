@@ -57,7 +57,8 @@ class RouteProcessor implements OutboundRouteProcessorInterface {
   ) {
     if ($route_name == 'entity.taxonomy_term.canonical' && !empty($parameters['taxonomy_term'])) {
       if ($vid = $this->configFactory->get('forum.settings')->get('vocabulary')) {
-        if ($this->entityTypeManager->getStorage('taxonomy_term')->load($parameters['taxonomy_term'])->getVocabularyId() == $vid) {
+        $term = $this->entityTypeManager->getStorage('taxonomy_term')->load($parameters['taxonomy_term']);
+        if (!empty($term) && $term->getVocabularyId() == $vid) {
           $route->setPath('/forum/{taxonomy_term}');
         }
       }
