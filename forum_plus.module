@@ -7,6 +7,7 @@
 
 use Drupal\comment\Plugin\Field\FieldType\CommentItemInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Implements hook_help().
@@ -72,5 +73,20 @@ function forum_plus_preprocess_forum_icon(&$variables) {
 function forum_plus_entity_view_mode_alter(&$view_mode, $entity, $context) {
   if (($view_mode == 'full' || $view_mode == 'default') && $entity->bundle() == 'forum') {
     $view_mode = 'topic_thread';
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function forum_plus_entity_insert(EntityInterface $entity) {
+  if (($entity->getEntityTypeId() == 'comment' && $entity->getTypeId() == 'comment_forum')
+    || ($entity->getEntityTypeId() == 'node' && $entity->getType() == 'forum')) {
+
+    // Increase post counter of user.
+    $query = \Drupal::database()->update('forum_user_statistics')
+      ->expression('post_count', 'post_count + 1')
+      ->condition('uid', $entity->getOwnerId())
+      ->execute();
   }
 }
