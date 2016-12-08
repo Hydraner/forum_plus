@@ -90,3 +90,18 @@ function forum_plus_entity_insert(EntityInterface $entity) {
       ->execute();
   }
 }
+
+/**
+ * Implements hook_entity_delete().
+ */
+function forum_plus_entity_delete(EntityInterface $entity) {
+  if (($entity->getEntityTypeId() == 'comment' && $entity->getTypeId() == 'comment_forum')
+    || ($entity->getEntityTypeId() == 'node' && $entity->getType() == 'forum')) {
+
+    // Decrease post counter of user.
+    $query = \Drupal::database()->update('forum_user_statistics')
+      ->expression('post_count', 'post_count - 1')
+      ->condition('uid', $entity->getOwnerId())
+      ->execute();
+  }
+}
