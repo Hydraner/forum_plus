@@ -1,0 +1,23 @@
+<?php
+
+function forum_plus_schema() {
+  $schema['forum_user_statistics'] = [
+    'fields' => [
+      'uid' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'unique keys' => ['uid' => 'uid'],
+      ],
+      'post_count' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['uid'],
+  ];
+
+  return $schema;
+}
