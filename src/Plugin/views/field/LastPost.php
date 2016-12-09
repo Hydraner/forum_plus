@@ -76,7 +76,7 @@ class LastPost extends FieldPluginBase {
   public function render(ResultRow $values) {
     return [
       '#theme' => 'forum_submitted',
-      '#topic' => $this->forumPlusManager->getLastPost($values->tid),
+      '#topic' => $this->forumPlusManager->getLastPost($values->id),
     ];
   }
 

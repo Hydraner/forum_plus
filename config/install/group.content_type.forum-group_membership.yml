@@ -1,0 +1,18 @@
+uuid: 9271f850-d168-45dd-9110-9b81946415f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.forum
+  module:
+    - user
+id: forum-group_membership
+label: 'Forum: Group membership'
+description: 'Adds users to groups as members.'
+group_type: forum
+content_plugin: group_membership
+plugin_config:
+  group_cardinality: 0
+  entity_cardinality: 1
+  info_text:
+    value: '<p>By submitting this form you will become a member of the group.<br />Please fill out any available fields to complete your membership information.</p>'

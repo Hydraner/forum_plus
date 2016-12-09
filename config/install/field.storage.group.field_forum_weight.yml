@@ -1,0 +1,20 @@
+uuid: 890a6140-319f-4d45-82d3-4302ed1d61b4
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.field_forum_weight
+field_name: field_forum_weight
+entity_type: group
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -88,7 +88,7 @@ class TopicsCounter extends FieldPluginBase {
    * {@inheritdoc}
    */
   public function render(ResultRow $values) {
-    $output = $this->forumPlusManager->getTopicCount($values->tid);
+    $output = $this->forumPlusManager->getTopicCount($values->id);
 
     // If the user is logged-in, we show an extra link indicating if their are
     // new posts.

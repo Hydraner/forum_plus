@@ -1,0 +1,21 @@
+uuid: 4cc3d8ff-f2d3-4696-9192-35d4651b7d37
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.forum
+    - node.type.forum
+  module:
+    - gnode
+    - node
+id: forum-group_node-forum
+label: 'Forum: Group node (Forum topic)'
+description: 'Adds <em class="placeholder">Forum topic</em> content to groups both publicly and privately.'
+group_type: forum
+content_plugin: 'group_node:forum'
+plugin_config:
+  group_cardinality: 0
+  entity_cardinality: 1
+  info_text:
+    value: "<p>By submitting this form you will add this content to the group.<br />\r\nIt will then be subject to the access control settings that were configured for the group.<br />\r\nPlease fill out any available fields to describe the relation between the content and the group.</p>\r\n"
+    format: basic_html

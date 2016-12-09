@@ -74,8 +74,8 @@ class ForumTable extends Table {
    */
   public function preRender($result) {
     $parent_id = 0;
-    if (!empty($this->routeMatch->getRawParameter('taxonomy_term'))) {
-      $parent_id = $this->routeMatch->getRawParameter('taxonomy_term');
+    if (!empty($this->routeMatch->getRawParameter('group'))) {
+      $parent_id = $this->routeMatch->getRawParameter('group');
     }
 
     $this->view->result = $this->buildTree($result, $parent_id);
@@ -105,7 +105,7 @@ class ForumTable extends Table {
    */
   private function buildTree($items, $parent_id = 0, &$result = [], $depth = 0) {
     // @todo: Make this configurable.
-    $parent_field_name = 'taxonomy_term_field_data_taxonomy_term_hierarchy_tid';
+    $parent_field_name = 'groups_field_data_group__field_forum_parent_id';
     foreach ($items as $key => $value) {
       if ($value->{$parent_field_name} == $parent_id) {
 
@@ -117,7 +117,7 @@ class ForumTable extends Table {
         unset($items[$key]);
 
         $oldParent = $parent_id;
-        $parent_id = $value->tid;
+        $parent_id = $value->id;
         $old_depth = $depth;
         $depth = $depth+1;
         $this->buildTree($items, $parent_id, $result, $depth);

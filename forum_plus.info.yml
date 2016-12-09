@@ -6,3 +6,4 @@ package: forum
 dependencies:
   - forum
   - profile
+  - group

@@ -99,7 +99,7 @@ class ForumPlusManager extends ForumManager implements ForumPlusManagerInterface
    *   TRUE if it is a container.
    */
   public function isContainer($tid) {
-    $forum = $this->entityTypeManager->getStorage('taxonomy_term')->load($tid);
+    $forum = $this->entityTypeManager->getStorage('group')->load($tid);
     return $forum->get('forum_container')->value;
   }
 
@@ -127,6 +127,24 @@ class ForumPlusManager extends ForumManager implements ForumPlusManagerInterface
    */
   public function lastVisit($tid, AccountInterface $account) {
     return parent::lastVisit($tid, $account);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getParents($id, $parents = []) {
+    $group = $this->entityManager->getStorage('group')->load($id);
+    // Add current forum.
+    if ($id == $group->id()) {
+      $parents[$id] = $group;
+    }
+    // Iterate through parent forums.
+    if ($id = $group->get('field_forum_parent')->target_id) {
+      $parents[$id] = $this->entityManager->getStorage('group')->load($id);
+      return $this->getParents($id, $parents);
+    }
+
+    return $parents;
   }
 
 }

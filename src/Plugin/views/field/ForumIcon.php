@@ -87,7 +87,7 @@ class ForumIcon extends FieldPluginBase {
    * {@inheritdoc}
    */
   public function render(ResultRow $values) {
-    $tid = $values->tid;
+    $id = $values->id;
 
     $new_topics = FALSE;
     if ($this->currentUser->isAuthenticated()) {
@@ -98,7 +98,7 @@ class ForumIcon extends FieldPluginBase {
     return [
       '#theme' => 'forum_icon',
       '#new_posts' => $new_topics,
-      '#num_posts' => $this->forumPlusManager->getPostCount($tid),
+      '#num_posts' => $this->forumPlusManager->getPostCount($id),
       '#comment_mode' => 2,
       '#sticky' => FALSE,
       '#first_new' => TRUE,

@@ -38,7 +38,7 @@ function forum_plus_views_data_alter(array &$data) {
     ],
   ];
 
-  $data['taxonomy_term_data'] += [
+  $data['groups_field_data'] += [
     'posts_counter' => [
       'title' => t('Posts Counter'),
       'field' => [

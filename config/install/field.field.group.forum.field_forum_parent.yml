@@ -1,0 +1,28 @@
+uuid: 48b61b7e-de34-4cea-b99a-a315e87efdaa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_forum_parent
+    - group.type.forum
+id: group.forum.field_forum_parent
+field_name: field_forum_parent
+entity_type: group
+bundle: forum
+label: Parent
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:group'
+  handler_settings:
+    target_bundles:
+      forum: forum
+    sort:
+      field: field_forum_weight
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

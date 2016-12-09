@@ -1,0 +1,17 @@
+uuid: 7a9c09ba-dfb8-4c9e-b8b2-bd39026212ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.forum
+id: forum-anonymous
+label: Anonymous
+weight: -102
+internal: true
+audience: anonymous
+group_type: forum
+permissions_ui: true
+permissions:
+  - 'view group'
+  - 'view forum node'
+  - 'view group_node:forum content'

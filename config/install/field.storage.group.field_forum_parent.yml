@@ -1,0 +1,19 @@
+uuid: cdd397a7-f723-4464-a7ca-eb3d6a2f8f8a
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.field_forum_parent
+field_name: field_forum_parent
+entity_type: group
+type: entity_reference
+settings:
+  target_type: group
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

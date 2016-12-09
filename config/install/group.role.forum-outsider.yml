@@ -1,0 +1,19 @@
+uuid: 426d5705-3516-429a-913c-4a2a8ab62d60
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.forum
+id: forum-outsider
+label: Outsider
+weight: -101
+internal: true
+audience: outsider
+group_type: forum
+permissions_ui: true
+permissions:
+  0: 'view group'
+  1: 'view forum node'
+  2: 'view group_node:forum content'
+  4: 'create forum node'
+  6: 'create group_node:forum content'

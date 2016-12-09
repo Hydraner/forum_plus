@@ -1,0 +1,22 @@
+uuid: b1c166e9-ba28-46f2-bc82-b3a735788cd5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group_content.group_roles
+    - group.content_type.forum-group_membership
+id: group_content.forum-group_membership.group_roles
+field_name: group_roles
+entity_type: group_content
+bundle: forum-group_membership
+label: Roles
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'group_type:group_role'
+  handler_settings:
+    group_type_id: forum
+field_type: entity_reference

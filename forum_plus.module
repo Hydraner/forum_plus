@@ -30,7 +30,7 @@ function forum_plus_help($route_name, RouteMatchInterface $route_match) {
 function template_preprocess_forum_plus_forum_table(&$variables) {
   template_preprocess_views_view_table($variables);
   // @todo: Make field configurable.
-  $field_name = 'name';
+  $field_name = 'label';
   foreach ($variables['rows'] as $delta => &$row) {
     $row['columns'][$field_name]['depth'] = $variables['view']->result[$delta]->depth;
   }

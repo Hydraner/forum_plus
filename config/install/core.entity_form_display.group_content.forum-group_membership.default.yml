@@ -1,0 +1,39 @@
+uuid: 5f879e7b-0c27-42c7-87c8-6b42e77c949f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.group_content.forum-group_membership.group_roles
+    - group.content_type.forum-group_membership
+  module:
+    - path
+id: group_content.forum-group_membership.default
+targetEntityType: group_content
+bundle: forum-group_membership
+mode: default
+content:
+  entity_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  group_roles:
+    type: options_buttons
+    weight: 31
+    settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  uid: true

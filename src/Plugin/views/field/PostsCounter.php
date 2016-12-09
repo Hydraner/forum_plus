@@ -74,7 +74,7 @@ class PostsCounter extends FieldPluginBase {
    * {@inheritdoc}
    */
   public function render(ResultRow $values) {
-    return $this->forumPlusManager->getPostCount($values->tid);
+    return $this->forumPlusManager->getPostCount($values->id);
   }
 
 }

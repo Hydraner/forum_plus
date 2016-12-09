@@ -1,0 +1,19 @@
+uuid: 412d3661-73a8-402c-bb35-5b6bd3b1c030
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.forum
+id: forum-member
+label: Member
+weight: -100
+internal: true
+audience: member
+group_type: forum
+permissions_ui: true
+permissions:
+  0: 'view group'
+  1: 'view forum node'
+  2: 'view group_node:forum content'
+  4: 'create forum node'
+  6: 'create group_node:forum content'
