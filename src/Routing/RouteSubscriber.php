@@ -20,10 +20,10 @@ class RouteSubscriber extends RouteSubscriberBase {
   public function alterRoutes(RouteCollection $collection) {
     // Alter the forum.index route.
     $forum_index_route = $collection->get('forum.index');
-    $forum_index_route->setDefault('_controller', '\Drupal\forum_plus\Controller\ForumPlusController::forumIndex');
+    $forum_index_route->setDefault('_controller', '\Drupal\forum_plus\Controller\ForumPlusController::forumPlusIndex');
     // Alter the forum.page route.
     $forum_page_route = $collection->get('forum.page');
-    $forum_page_route->setDefault('_controller', '\Drupal\forum_plus\Controller\ForumPlusController::forumPage');
+    $forum_page_route->setDefault('_controller', '\Drupal\forum_plus\Controller\ForumPlusController::forumPlusPage');
     $forum_page_route->setDefault('_title_callback', '\Drupal\forum_plus\Controller\ForumPlusController::groupTitle');
     $forum_page_route->setPath('/forum/{group}');
     $forum_page_route->addOptions(['parameters' => ['group' => ['type' => 'entity:group']]]);

@@ -26,11 +26,11 @@ class ForumPlusController extends ForumController {
   /**
    * {@inheritdoc}
    */
-  public function forumPage(GroupInterface $group) {
+  public function forumPlusPage(GroupInterface $group) {
     $config = $this->config('forum.settings');
 
     return [
-      'action' => $this->buildActionLinks($config->get('vocabulary'), $group),
+      'action' => $this->buildForumPlusActionLinks($config->get('vocabulary'), $group),
       'forum' => views_embed_view('forum_plus_topics', 'overview'),
       '#cache' => [
         'tags' => Cache::mergeTags($this->nodeEntityTypeDefinition->getListCacheTags(), $this->commentEntityTypeDefinition->getListCacheTags()),
@@ -41,7 +41,7 @@ class ForumPlusController extends ForumController {
   /**
    * {@inheritdoc}
    */
-  public function forumIndex() {
+  public function forumPlusIndex() {
     $vocabulary = $this->vocabularyStorage->load($this->config('forum.settings')->get('vocabulary'));
     $index = $this->forumManager->getIndex();
     $config = $this->config('forum.settings');
@@ -73,7 +73,7 @@ class ForumPlusController extends ForumController {
    * @return array
    *   Render array containing the links.
    */
-  protected function buildActionLinks($vid, GroupInterface $group = NULL) {
+  protected function buildForumPlusActionLinks($vid, GroupInterface $group = NULL) {
     $user = $this->currentUser();
 
     $links = [];
