@@ -112,13 +112,14 @@ class TopicIcon extends FieldPluginBase {
     if ($this->currentUser->isAuthenticated()) {
       $topic->new = $topic->new_replies || ($topic->last_comment_timestamp > $history);
     }
-$debug = 1;
+
     return [
       '#theme' => 'forum_icon',
       '#new_posts' => $topic->new,
       '#num_posts' => $topic->last_comment_timestamp,
       '#comment_mode' => $topic->comment_forum->status,
       '#sticky' => $topic->isSticky(),
+      '#type' => 'topic',
       '#first_new' => TRUE,
       '#attached' => [
         'library' => ['classy/forum']
