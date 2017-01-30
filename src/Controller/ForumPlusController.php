@@ -78,48 +78,49 @@ class ForumPlusController extends ForumController {
 
     $links = [];
     // Loop through all bundles for forum taxonomy vocabulary field.
-    foreach ($this->fieldMap['node']['taxonomy_forums']['bundles'] as $type) {
-      if ($this->nodeAccess->createAccess($type)) {
-        $node_type = $this->nodeTypeStorage->load($type);
-        $links[$type] = [
-          '#attributes' => ['class' => ['action-links']],
-          '#theme' => 'menu_local_action',
-          '#link' => [
-            'title' => $this->t('Add new @node_type', [
-              '@node_type' => $this->nodeTypeStorage->load($type)->label(),
-            ]),
-            'url' => Url::fromRoute('node.add', ['node_type' => $type]),
-          ],
-          '#cache' => [
-            'tags' => $node_type->getCacheTags(),
-          ],
-        ];
-        if ($group && $group->bundle() == $vid) {
-          // We are viewing a forum term (specific forum), append the tid to
-          // the url.
-          $links[$type]['#link']['localized_options']['query']['forum_id'] = $group->id();
-        }
-      }
-    }
-    if (empty($links)) {
-      // Authenticated user does not have access to create new topics.
-      if ($user->isAuthenticated()) {
-        $links['disallowed'] = [
-          '#markup' => $this->t('You are not allowed to post new content in the forum.'),
-        ];
-      }
-      // Anonymous user does not have access to create new topics.
-      else {
-        $links['login'] = [
-          '#attributes' => ['class' => ['action-links']],
-          '#theme' => 'menu_local_action',
-          '#link' => array(
-            'title' => $this->t('Log in to post new content in the forum.'),
-            'url' => Url::fromRoute('user.login', [], ['query' => $this->getDestinationArray()]),
-          ),
-        ];
-      }
-    }
+//    foreach ($this->fieldMap['node']['taxonomy_forums']['bundles'] as $type) {
+//      $type = 'forum';
+//      if ($this->nodeAccess->createAccess($type)) {
+//        $node_type = $this->nodeTypeStorage->load($type);
+//        $links[$type] = [
+//          '#attributes' => ['class' => ['action-links']],
+//          '#theme' => 'menu_local_action',
+//          '#link' => [
+//            'title' => $this->t('Add new @node_type', [
+//              '@node_type' => $this->nodeTypeStorage->load($type)->label(),
+//            ]),
+//            'url' => Url::fromRoute('node.add', ['node_type' => $type]),
+//          ],
+//          '#cache' => [
+//            'tags' => $node_type->getCacheTags(),
+//          ],
+//        ];
+//        if ($group && $group->bundle() == $vid) {
+//          // We are viewing a forum term (specific forum), append the tid to
+//          // the url.
+//          $links[$type]['#link']['localized_options']['query']['forum_id'] = $group->id();
+//        }
+//      }
+////    }
+//    if (empty($links)) {
+//      // Authenticated user does not have access to create new topics.
+//      if ($user->isAuthenticated()) {
+//        $links['disallowed'] = [
+//          '#markup' => $this->t('You are not allowed to post new content in the forum.'),
+//        ];
+//      }
+//      // Anonymous user does not have access to create new topics.
+//      else {
+//        $links['login'] = [
+//          '#attributes' => ['class' => ['action-links']],
+//          '#theme' => 'menu_local_action',
+//          '#link' => array(
+//            'title' => $this->t('Log in to post new content in the forum.'),
+//            'url' => Url::fromRoute('user.login', [], ['query' => $this->getDestinationArray()]),
+//          ),
+//        ];
+//      }
+//    }
     return $links;
   }
 

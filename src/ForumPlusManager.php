@@ -9,12 +9,12 @@ use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\forum\ForumManager;
+use Drupal\entity_history_forum\EntityHistoryForumManager;
 
 /**
  * Provides forum manager service.
  */
-class ForumPlusManager extends ForumManager implements ForumPlusManagerInterface {
+class ForumPlusManager extends EntityHistoryForumManager implements ForumPlusManagerInterface {
 
   /**
    * The entity_type manager service.

@@ -1,15 +1,3 @@
-forum_plus_add_forum_local_action:
-  route_name: forum.add_forum
-  title: 'Add forum'
-  appears_on:
-    - view.forum_plus_forums.overview
-
-forum_plus_add_container_local_action:
-  route_name: forum.add_container
-  title: 'Add container'
-  appears_on:
-    - view.forum_plus_forums.overview
-
 entity.ranking.add_form:
   route_name: 'entity.ranking.add_form'
   title: 'Add Ranking'

@@ -108,7 +108,7 @@ class TopicIcon extends FieldPluginBase {
     $topic->new = 0;
     $topic->last_comment_timestamp = $values->comment_entity_statistics_comment_count;
     $history = $this->forumPlusManager->lastVisit($topic->id(), $this->currentUser);
-    $topic->new_replies = $this->commentManager->getCountNewComments($topic, 'comment_forum', $history);
+    $topic->new_replies = $this->commentManager->getCountNewComments($topic, 'comment_forum');
     if ($this->currentUser->isAuthenticated()) {
       $topic->new = $topic->new_replies || ($topic->last_comment_timestamp > $history);
     }

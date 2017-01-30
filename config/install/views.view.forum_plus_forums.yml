@@ -1,4 +1,3 @@
-uuid: b963d946-0dc7-4aad-a601-8b4fc4a36ee9
 langcode: en
 status: true
 dependencies:
@@ -490,7 +489,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: forums
+      path: forum
     cache_metadata:
       max-age: 0
       contexts:

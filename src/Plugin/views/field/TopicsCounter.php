@@ -96,7 +96,7 @@ class TopicsCounter extends FieldPluginBase {
       $forum = $values->_entity;
       $new_topics = $this->forumPlusManager->unreadTopics($forum->id(), $this->currentUser->id());
       if ($new_topics) {
-        $url = new Url('forum.page', ['taxonomy_term' => $forum->id()], ['fragment' => 'new']);
+        $url = new Url('forum.page', ['group' => $forum->id()], ['fragment' => 'new']);
         $link_title = $this->formatPlural(
           count($new_topics),
           '1 new post<span class="visually-hidden"> in forum %title</span>',

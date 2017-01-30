@@ -6,4 +6,5 @@ package: forum
 dependencies:
   - forum
   - profile
-  - group
+  - gnode
+  - entity_history_forum
