@@ -8,6 +8,8 @@ dependencies:
     - forum_plus
     - node
     - user
+_core:
+  default_config_hash: 0RJg8xSxnHcegW3h6toBvAcK_UDMX41pQtJ6QvVaiGs
 id: forum_plus_topics
 label: 'Forum topics'
 module: views
@@ -418,6 +420,19 @@ display:
           entity_field: type
           plugin_id: bundle
       sorts:
+        last_comment_timestamp:
+          id: last_comment_timestamp
+          table: comment_entity_statistics
+          field: last_comment_timestamp
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: DESC
+          exposed: false
+          expose:
+            label: ''
+          granularity: second
+          plugin_id: date
         created:
           id: created
           table: node_field_data
@@ -434,6 +449,216 @@ display:
             label: ''
           granularity: second
       title: 'Forum topics'
+      header: {  }
+      footer: {  }
+      empty: {  }
+      relationships: {  }
+      arguments: {  }
+      display_extenders: {  }
+      css_class: forum
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  latest_activity:
+    display_plugin: page
+    id: latest_activity
+    display_title: 'Latest activity'
+    position: 3
+    display_options:
+      display_extenders: {  }
+      display_description: ''
+      path: forum/latest-activity
+      title: 'Latest activity'
+      defaults:
+        title: false
+        arguments: false
+      arguments:
+        last_comment_uid:
+          id: last_comment_uid
+          table: comment_entity_statistics
+          field: last_comment_uid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          default_action: default
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: current_user
+          default_argument_options: {  }
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            items_per_page: 25
+            override: false
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: true
+          plugin_id: numeric
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  new:
+    display_plugin: page
+    id: new
+    display_title: 'Topic activity 24h'
+    position: 2
+    display_options:
+      display_extenders: {  }
+      display_description: ''
+      path: forum/new
+      filters:
+        status:
+          value: '1'
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: node
+          entity_field: status
+          id: status
+          expose:
+            operator: ''
+          group: 1
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          value:
+            forum: forum
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+        last_comment_timestamp:
+          id: last_comment_timestamp
+          table: comment_entity_statistics
+          field: last_comment_timestamp
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '>'
+          value:
+            min: ''
+            max: ''
+            value: '-1 day'
+            type: offset
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: date
+      defaults:
+        filters: false
+        filter_groups: false
+        title: false
+        arguments: false
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      title: 'Active topics in the past 24h'
+      arguments:
+        last_comment_uid:
+          id: last_comment_uid
+          table: comment_entity_statistics
+          field: last_comment_uid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          default_action: default
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: current_user
+          default_argument_options: {  }
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            items_per_page: 25
+            override: false
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: true
+          plugin_id: numeric
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  overview:
+    display_plugin: page
+    id: overview
+    display_title: 'Forum topics'
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: forum/%group
+      display_description: ''
       header:
         view:
           id: view
@@ -446,9 +671,9 @@ display:
           view_to_insert: 'forum_plus_forums:overview'
           inherit_arguments: true
           plugin_id: view
-      footer: {  }
-      empty: {  }
-      relationships: {  }
+      defaults:
+        header: false
+        arguments: false
       arguments:
         taxonomy_forums_target_id:
           id: taxonomy_forums_target_id
@@ -484,27 +709,6 @@ display:
           break_phrase: false
           not: false
           plugin_id: numeric
-      display_extenders: {  }
-      css_class: forum
-    cache_metadata:
-      max-age: 0
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - route
-        - url
-        - url.query_args
-        - 'user.node_grants:view'
-        - user.permissions
-      tags: {  }
-  overview:
-    display_plugin: page
-    id: overview
-    display_title: Page
-    position: 1
-    display_options:
-      display_extenders: {  }
-      path: forum/%group
     cache_metadata:
       max-age: 0
       contexts:
