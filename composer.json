@@ -10,5 +10,14 @@
     "issues": "https://www.drupal.org/project/issues/forum_plus",
     "source": "http://cgit.drupalcode.org/forum_plus"
   },
-  "require": { }
+  "repositories": [
+    {
+        "name": "drupal/entity_history",
+        "type": "vcs",
+        "url": "https://github.com/Hydraner/entity_history.git"
+    }
+  ],
+  "require": {
+    "drupal/entity_history": "dev-8.x-1.x"
+  }
 }
