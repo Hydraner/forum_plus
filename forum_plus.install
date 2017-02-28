@@ -28,18 +28,20 @@ function forum_plus_install() {
 
   // Adjust the taxonomy_forums field to use groups instead of terms.
   $field_storages = \Drupal::entityManager()->getStorage('field_storage_config')->loadByProperties(array('field_name' => 'taxonomy_forums'));
-  $field_storage = reset($field_storages);
-  $field_storage->setSetting('target_type', 'group');
-  $field_storage->save();
-  $field_config = \Drupal::entityManager()
-    ->getStorage('field_config')
-    ->load('node.forum.taxonomy_forums');
-  $settings = $field_config->getSettings();
-  $settings['handler'] = 'default:group';
-  $settings['target_type'] = 'group';
-  unset($settings['handler_settings']['target_bundles']);
-  $settings['handler_settings']['target_bundles']['forum'] = 'forum';
-  $settings['handler_settings']['autocreate'] = false;
-  $field_config->setSettings($settings);
-  $field_config->save();
+  if (!empty($field_storages)) {
+    $field_storage = reset($field_storages);
+    $field_storage->setSetting('target_type', 'group');
+    $field_storage->save();
+    $field_config = \Drupal::entityManager()
+      ->getStorage('field_config')
+      ->load('node.forum.taxonomy_forums');
+    $settings = $field_config->getSettings();
+    $settings['handler'] = 'default:group';
+    $settings['target_type'] = 'group';
+    unset($settings['handler_settings']['target_bundles']);
+    $settings['handler_settings']['target_bundles']['forum'] = 'forum';
+    $settings['handler_settings']['autocreate'] = false;
+    $field_config->setSettings($settings);
+    $field_config->save();
+  }
 }
